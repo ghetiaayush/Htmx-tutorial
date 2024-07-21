@@ -13,7 +13,9 @@ const createHomepageTemplate = () => /*html*/`
 
       <main>
         <div class="book-list">
-        <button hx-get="/books">Show List</button>
+        <button hx-get="/books" hx-swap="outerHTML" hx-indicator="#indicator">Show List
+           <img class="htmx-indicator" id="indicator" src="/spinner.gif">
+        </button>
         </div>
 
         <div class="add-book-form">
