@@ -8,10 +8,21 @@ const createHomepageTemplate = () => /*html*/`
     </head>
     <body>
       <header>
-        <h1>My Reading List</h1>
+        <h1>Reading List</h1>
       </header>
 
       <main>
+         <div class="search" style="text-align: center;">
+          <input 
+            type="search"
+            name="search"
+            placeholder="Search books by title..."
+            hx-post="/books/search"
+            hx-trigger="keyup changed delay:300ms"
+            hx-target=".book-list"
+          />
+        </div> 
+
         <div class="book-list">
           <button hx-get="/books" hx-target=".book-list" >Show Books</button>
           <!--
@@ -27,8 +38,13 @@ const createHomepageTemplate = () => /*html*/`
         </div>
 
          <div class="add-book-form">
-          <h2>What do you want to read?</h2>
-          <form>
+          <h2>What do you want to read .....!</h2>
+          <form
+           hx-post="/books"
+           hx-target=".book-list ul" 
+           hx-swap="beforeend"
+           hx-on::after-request="document.querySelector('form').reset()"
+          >
             <input 
               id="title" 
               name="title"
@@ -42,11 +58,7 @@ const createHomepageTemplate = () => /*html*/`
               type="text" 
             />
               <button 
-              hx-post="/books" 
-              hx-target=".book-list ul" 
-              hx-swap="beforeend"
-              hx-on::after-request="document.querySelector('form').reset()"
-              hx-on:click="alert('new book added')"
+               hx-on:click="alert('new book added')"
               >Add</button>
         </div>
       </main>
